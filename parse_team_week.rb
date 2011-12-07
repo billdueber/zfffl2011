@@ -16,6 +16,8 @@ weeks.each do |week|
         next unless tr.css('td.pos').text =~ /\S/
         name = tr.css('td.player a.name').text
         (pteam, ppos) = tr.css('td.player span').text.gsub(/[() ]/, '').split('-')
+        ppos.gsub! /,.*/, ''
+        ppos.gsub! /(IR|NA)/, ''
         points = tr.css('td.pts').text.to_i
         pos = tr.css('td.pos').text
         pos = 'WRRB' if pos == 'W/R'
