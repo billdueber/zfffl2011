@@ -44,4 +44,5 @@ group by g1.week, g1.t1;
 select name, wins as actual, count(*) as fair, count(*) - wins as luck from teamsbeat, teams, wins
 where teamsbeat > 6 and teams.zteam = teamsbeat.zteam and teams.zteam = wins.t1 group by teamsbeat.zteam, wins.wins order by count(*) - wins desc;
 
-
+-- Games you would have lost if your opponents had been perfect.
+select name, count(t1) from games, teams where t1pts > t2pts and t2max > t1pts and t1=zteam group by t1;
