@@ -34,3 +34,14 @@ create view record as
   from teams, wins w
   where teams.zteam = w.t1
   group by teams.name;
+
+-- Teams Beat
+select g1.week as week, g1.t1 as zteam, count(g2.t1) teamsbeat from games g1, games g2
+where g1.week = g2.week and g1.t1pts > g2.t1pts and g1.t1 <> g2.t1 
+group by g1.week, g1.t1;
+
+-- wins vs fair wins
+select name, wins as actual, count(*) as fair, count(*) - wins as luck from teamsbeat, teams, wins
+where teamsbeat > 6 and teams.zteam = teamsbeat.zteam and teams.zteam = wins.t1 group by teamsbeat.zteam, wins.wins order by count(*) - wins desc;
+
+
